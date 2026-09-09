@@ -6,14 +6,14 @@
 
 `RedSpark-1.0-FlashLight-Preview` 是 RedSpark 项目的第一版预览模型，面向开源软件知识和代码问答场景。
 
-本模型基于上游指令模型 `Qwen/Qwen3-1.7B`，并不是从零训练的新基础模型。当前目录中的权重是 Qwen3-1.7B 初始权重，后续通过 RedSpark 的领域数据飞轮和 SFT/LoRA 训练形成项目版本。
+本模型基于上游最终后训练模型 `openbmb/MiniCPM5-2B`，并不是从零训练的新基础模型。当前目录中的权重是 MiniCPM5-2B 初始权重，后续通过 RedSpark 的领域数据飞轮和 SFT/LoRA 训练形成项目版本。
 
 ## 当前状态
 
-- 模型类型：1.7B 参数量级的 causal language model
-- 上游基模：`Qwen/Qwen3-1.7B`
-- 上下文长度：32,768 tokens
-- 运行框架：Hugging Face Transformers `>=4.51.0`
+- 模型类型：2.5B 参数量级的 causal language model
+- 上游基模：`openbmb/MiniCPM5-2B`（最终后训练版本）
+- 上下文长度：131,072 tokens
+- 运行框架：Hugging Face Transformers `>=5.6,<6`
 - 推理设备：支持 CPU，也支持 NVIDIA CUDA
 - 产品阶段：Preview，当前重点是验证数据、训练和推理闭环
 
@@ -22,8 +22,9 @@
 从仓库根目录运行：
 
 ```powershell
-py -3 inference/chat.py "解释什么是 RAG" --no-thinking
-py -3 inference/benchmark.py --max-new-tokens 64
+py -3 inference/chat.py "解释什么是 RAG"
+py -3 inference/benchmark.py --device cuda --max-new-tokens 64
+py -3 inference/benchmark.py --device cpu --max-new-tokens 64
 py -3 data/validate.py data/processed/sft.jsonl
 py -3 training/sft.py --data data/processed/sft.jsonl --output artifacts/sft
 ```
@@ -36,6 +37,6 @@ py -3 training/sft.py --data data/processed/sft.jsonl --output artifacts/sft
 
 ## 上游归属与许可证
 
-本模型基于 Qwen/Qwen3-1.7B。模型配置、Tokenizer、权重及本目录中的许可证信息保留上游归属；RedSpark 自有训练、推理和数据飞轮代码位于仓库的 `training/`、`inference/` 和 `data/` 目录。
+本模型基于 openbmb/MiniCPM5-2B。模型配置、Tokenizer、权重及本目录中的许可证信息保留上游归属；RedSpark 自有训练、推理和数据飞轮代码位于仓库的 `training/`、`inference/` 和 `data/` 目录。
 
-Qwen3-1.7B 模型文件使用 Apache-2.0，详见本目录的 [LICENSE](LICENSE)。项目整体的归属边界见仓库根目录 [NOTICE](../../NOTICE)。
+MiniCPM5-2B 模型文件使用 Apache-2.0，详见本目录的 [LICENSE](LICENSE)。项目整体的归属边界见仓库根目录 [NOTICE](../../NOTICE)。
