@@ -1,13 +1,13 @@
 # RedSpark 赤霄初耀
 
-RedSpark 是面向开源软件知识与代码问答的 LLM 工程。项目以 Qwen3-1.7B 为指令模型起点，通过数据飞轮持续沉淀高质量领域数据，再进行 SFT/LoRA 训练和本地推理验证。
+RedSpark 是面向开源软件知识与代码问答的 LLM 工程，当前模型产品名为 `RedSpark-1.0-FlashLight-Preview`。项目以 Qwen3-1.7B 为指令模型起点，通过数据飞轮持续沉淀高质量领域数据，再进行 SFT/LoRA 训练和本地推理验证。
 
 ## 工程架构
 
 ```text
 数据采集 → 清洗/去重/质检 → SFT 数据集
                               ↓
-                         Qwen3-1.7B
+              RedSpark-1.0-FlashLight-Preview
                               ↓
                     SFT/LoRA 训练产物
                               ↓
@@ -19,7 +19,8 @@ RedSpark 是面向开源软件知识与代码问答的 LLM 工程。项目以 Qw
 ```text
 redspark/
 ├── model/                 模型快照、Tokenizer、配置和模型资产说明
-│   └── Qwen3-1.7B/
+│   ├── README.md          RedSpark 模型产品说明
+│   └── RedSpark-1.0-FlashLight-Preview/
 ├── training/              SFT/LoRA 训练入口和训练超参数
 │   ├── sft.py
 │   └── sft_config.yaml
@@ -45,10 +46,10 @@ py -3 -m pip install -r requirements-cuda128.txt
 py -3 inference/chat.py "解释什么是 RAG" --no-thinking
 ```
 
-默认模型目录为 `model/Qwen3-1.7B`。如果只拉取了代码和配置，可以使用以下命令补齐模型文件：
+默认模型目录为 `model/RedSpark-1.0-FlashLight-Preview`。如果只拉取了代码和配置，可以使用以下命令补齐模型文件：
 
 ```powershell
-hf download Qwen/Qwen3-1.7B --local-dir model/Qwen3-1.7B
+hf download Qwen/Qwen3-1.7B --local-dir model/RedSpark-1.0-FlashLight-Preview
 ```
 
 性能基准：
@@ -57,7 +58,7 @@ hf download Qwen/Qwen3-1.7B --local-dir model/Qwen3-1.7B
 py -3 inference/benchmark.py --max-new-tokens 64
 ```
 
-当前 RTX 4070 Laptop GPU 实测：`cuda:0`、峰值已分配显存约 3.23 GiB、生成速度约 15.29 tokens/s。该数据是本机短提示 CPU/GPU 对照基准，不代表所有部署环境的性能。
+当前 RTX 4070 Laptop GPU 实测 `RedSpark-1.0-FlashLight-Preview`：`cuda:0`、峰值已分配显存约 3.23 GiB、生成速度约 15.29 tokens/s。该数据是本机短提示 CPU/GPU 对照基准，不代表所有部署环境的性能。
 
 ## 训练
 
@@ -78,9 +79,9 @@ py -3 training/sft.py --data data/processed/sft.jsonl --output artifacts/sft
 ## 技术边界
 
 - Qwen3 模型结构由 Hugging Face Transformers 提供，要求 `transformers>=4.51.0`。
-- `Qwen3-1.7B` 是已经完成预训练和后训练的指令模型，本项目当前定位是领域 SFT，不是从零预训练。
+- `RedSpark-1.0-FlashLight-Preview` 基于已经完成预训练和后训练的 `Qwen3-1.7B` 指令模型，本项目当前定位是领域 SFT，不是从零预训练。
 - `artifacts/`、数据处理产物和 safetensors 权重默认不进入 Git；模型权重可通过 Hugging Face 重新下载。
 
 ## 许可证与归属
 
-Qwen3-1.7B 模型文件使用 Apache-2.0。RedSpark 自有训练、推理和数据飞轮代码的归属边界，以及模型上游文件的保留说明见 `NOTICE`。
+`RedSpark-1.0-FlashLight-Preview` 使用的 Qwen3-1.7B 模型文件使用 Apache-2.0。RedSpark 自有训练、推理和数据飞轮代码的归属边界，以及模型上游文件的保留说明见 `NOTICE`。

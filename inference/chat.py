@@ -1,4 +1,4 @@
-"""Local inference entry point for the RedSpark Qwen3 model."""
+"""Local inference entry point for RedSpark-1.0-FlashLight-Preview."""
 
 import argparse
 from pathlib import Path
@@ -7,7 +7,8 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
-DEFAULT_MODEL_DIR = Path(__file__).parents[1] / "model" / "Qwen3-1.7B"
+MODEL_NAME = "RedSpark-1.0-FlashLight-Preview"
+DEFAULT_MODEL_DIR = Path(__file__).parents[1] / "model" / MODEL_NAME
 
 
 def load_model(model_dir: Path):
@@ -26,7 +27,7 @@ def generate(model, tokenizer, prompt: str, thinking: bool, max_new_tokens: int)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run one RedSpark inference request.")
+    parser = argparse.ArgumentParser(description=f"Run one {MODEL_NAME} inference request.")
     parser.add_argument("prompt")
     parser.add_argument("--model-dir", type=Path, default=DEFAULT_MODEL_DIR)
     parser.add_argument("--max-new-tokens", type=int, default=512)
@@ -38,4 +39,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

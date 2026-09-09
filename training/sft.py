@@ -9,8 +9,8 @@ from trl import SFTTrainer
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Fine-tune Qwen3-1.7B with RedSpark SFT data.")
-    parser.add_argument("--model", default="model/Qwen3-1.7B")
+    parser = argparse.ArgumentParser(description="Fine-tune RedSpark-1.0-FlashLight-Preview with SFT data.")
+    parser.add_argument("--model", default="model/RedSpark-1.0-FlashLight-Preview")
     parser.add_argument("--data", default="data/processed/sft.jsonl")
     parser.add_argument("--output", default="artifacts/sft")
     parser.add_argument("--epochs", type=float, default=3)
@@ -42,4 +42,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

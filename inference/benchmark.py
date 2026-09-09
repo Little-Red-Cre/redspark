@@ -11,7 +11,8 @@ import torch
 from chat import generate, load_model
 
 
-DEFAULT_MODEL_DIR = Path(__file__).parents[1] / "model" / "Qwen3-1.7B"
+MODEL_NAME = "RedSpark-1.0-FlashLight-Preview"
+DEFAULT_MODEL_DIR = Path(__file__).parents[1] / "model" / MODEL_NAME
 
 
 def main() -> None:
@@ -33,6 +34,7 @@ def main() -> None:
     elapsed = time.perf_counter() - start
     output_tokens = len(tokenizer(output, add_special_tokens=False)["input_ids"])
     print(f"device={model.device}")
+    print(f"model_name={MODEL_NAME}")
     print(f"load_seconds={load_seconds:.3f}")
     print(f"prompt_tokens={prompt_tokens}")
     print(f"output_tokens={output_tokens}")

@@ -8,5 +8,4 @@ logs/
 data/raw/*
 data/processed/*
 !data/processed/.gitkeep
-model/Qwen3-1.7B/model-*.safetensors
-
+model/RedSpark-1.0-FlashLight-Preview/model-*.safetensors

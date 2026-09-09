@@ -1,4 +1,4 @@
-model_name_or_path: model/Qwen3-1.7B
+model_name_or_path: model/RedSpark-1.0-FlashLight-Preview
 dataset_path: data/processed/sft.jsonl
 output_dir: artifacts/sft
 max_seq_length: 4096
@@ -13,4 +13,3 @@ use_lora: true
 lora_r: 16
 lora_alpha: 32
 lora_dropout: 0.05
-
