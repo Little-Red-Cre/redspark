@@ -1,0 +1,4 @@
+# NVIDIA CUDA 12.8 runtime for Windows/Linux; install this before requirements.txt.
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0+cu128
+-r requirements.txt

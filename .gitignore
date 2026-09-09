@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+artifacts/
+logs/
+data/raw/*
+data/processed/*
+!data/processed/.gitkeep
+model/Qwen3-1.7B/model-*.safetensors
+
