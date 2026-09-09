@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/redspark-logo.png" alt="RedSpark 赤霄初耀" width="260">
+</p>
+
 # RedSpark 赤霄初耀
 
 RedSpark 是面向开源软件知识与代码问答的 LLM 工程，当前模型产品名为 `RedSpark-1.0-FlashLight-Preview`。项目以 Qwen3-1.7B 为指令模型起点，通过数据飞轮持续沉淀高质量领域数据，再进行 SFT/LoRA 训练和本地推理验证。

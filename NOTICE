@@ -2,7 +2,8 @@ RedSpark includes the Qwen3-1.7B model files from Qwen/Qwen3-1.7B.
 
 The model files are distributed under the Apache License 2.0. The model
 license and upstream attribution are retained in
-model/RedSpark-1.0-FlashLight-Preview/LICENSE and README.md.
+model/RedSpark-1.0-FlashLight-Preview/LICENSE and
+model/RedSpark-1.0-FlashLight-Preview/README.md.
 
 RedSpark-1.0-FlashLight-Preview's training, inference, and data-flywheel code is project-authored.
 Qwen3 architecture support is provided by the Hugging Face Transformers
