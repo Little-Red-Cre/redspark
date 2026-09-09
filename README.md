@@ -4,7 +4,7 @@
 
 # RedSpark 赤霄初耀
 
-RedSpark 是面向开源软件知识与代码问答的 LLM 工程，当前模型产品名为 `RedSpark-1.0-FlashLight-Preview`。项目以 Qwen3-1.7B 为指令模型起点，通过数据飞轮持续沉淀高质量领域数据，再进行 SFT/LoRA 训练和本地推理验证。
+RedSpark 是面向开源软件知识与代码问答的 LLM 工程，当前模型产品名为 `RedSpark-1.0-FlashLight-Preview`。项目以 `openbmb/MiniCPM5-2B` 最终后训练版本为指令模型起点，通过数据飞轮持续沉淀高质量领域数据，再进行 SFT/LoRA 训练和本地推理验证。
 
 ## 工程架构
 
@@ -53,16 +53,17 @@ py -3 inference/chat.py "解释什么是 RAG" --no-thinking
 默认模型目录为 `model/RedSpark-1.0-FlashLight-Preview`。如果只拉取了代码和配置，可以使用以下命令补齐模型文件：
 
 ```powershell
-hf download Qwen/Qwen3-1.7B --local-dir model/RedSpark-1.0-FlashLight-Preview
+hf download openbmb/MiniCPM5-2B --local-dir model/RedSpark-1.0-FlashLight-Preview
 ```
 
 性能基准：
 
 ```powershell
-py -3 inference/benchmark.py --max-new-tokens 64
+py -3 inference/benchmark.py --device cuda --max-new-tokens 64
+py -3 inference/benchmark.py --device cpu --max-new-tokens 64
 ```
 
-当前 RTX 4070 Laptop GPU 实测 `RedSpark-1.0-FlashLight-Preview`：`cuda:0`、峰值已分配显存约 3.23 GiB、生成速度约 15.29 tokens/s。该数据是本机短提示 CPU/GPU 对照基准，不代表所有部署环境的性能。
+基准脚本会用固定提示、预热和重复生成报告 CPU/GPU 的生成速度、加载时间和内存。GPU 使用 BF16，CPU 使用 FP32；结果只代表当次设备、精度和生成长度。
 
 ## 训练
 
@@ -82,10 +83,11 @@ py -3 training/sft.py --data data/processed/sft.jsonl --output artifacts/sft
 
 ## 技术边界
 
-- Qwen3 模型结构由 Hugging Face Transformers 提供，要求 `transformers>=4.51.0`。
-- `RedSpark-1.0-FlashLight-Preview` 基于已经完成预训练和后训练的 `Qwen3-1.7B` 指令模型，本项目当前定位是领域 SFT，不是从零预训练。
+- MiniCPM5-2B 是标准 `LlamaForCausalLM`，由 Hugging Face Transformers 直接加载，要求 `transformers>=5.6,<6`。
+- `RedSpark-1.0-FlashLight-Preview` 基于已经完成预训练和后训练的 `openbmb/MiniCPM5-2B` 最终版本，本项目当前定位是领域 SFT，不是从零预训练。
+- MiniCPM5-2B 仅支持 Think 模式。为兼容旧命令，`--no-thinking` 仍可传入，但会被忽略并给出提示。
 - `artifacts/`、数据处理产物和 safetensors 权重默认不进入 Git；模型权重可通过 Hugging Face 重新下载。
 
 ## 许可证与归属
 
-`RedSpark-1.0-FlashLight-Preview` 使用的 Qwen3-1.7B 模型文件使用 Apache-2.0。RedSpark 自有训练、推理和数据飞轮代码的归属边界，以及模型上游文件的保留说明见 `NOTICE`。
+`RedSpark-1.0-FlashLight-Preview` 使用的 MiniCPM5-2B 模型文件使用 Apache-2.0。RedSpark 自有训练、推理和数据飞轮代码的归属边界，以及模型上游文件的保留说明见 `NOTICE`。

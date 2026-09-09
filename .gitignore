@@ -9,3 +9,4 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 model/RedSpark-1.0-FlashLight-Preview/model-*.safetensors
+model/.minicpm5-2b-staging/
