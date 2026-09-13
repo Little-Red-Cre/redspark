@@ -1,5 +1,5 @@
-model_name_or_path: model/RedSpark-1.0-FlashLight-Preview
-dataset_path: data/processed/sft.jsonl
+model_name_or_path: model/redspark/model-weights/base
+dataset_path: data/processed/smoke_sft.jsonl
 output_dir: artifacts/sft
 max_seq_length: 4096
 per_device_train_batch_size: 1

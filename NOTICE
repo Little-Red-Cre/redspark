@@ -1,10 +1,17 @@
-RedSpark includes the MiniCPM5-2B model files from openbmb/MiniCPM5-2B.
+RedSpark includes MiniCPM5-2B model files from openbmb/MiniCPM5-2B-Base and
+openbmb/MiniCPM5-2B.
 
-The model files are distributed under the Apache License 2.0. The model
-license and upstream attribution are retained in
-model/RedSpark-1.0-FlashLight-Preview/LICENSE and
-model/RedSpark-1.0-FlashLight-Preview/README.md.
+The model files are distributed under the Apache License 2.0. The upstream
+model license and attribution are retained alongside the weights:
 
-RedSpark-1.0-FlashLight-Preview's training, inference, and data-flywheel code is project-authored.
-MiniCPM5-2B's Llama architecture support is provided by the Hugging Face Transformers
-package (transformers>=5.6,<6).
+- model/redspark/model-weights/minicpm5-2b-final-reference/LICENSE
+- model/redspark/model-weights/minicpm5-2b-final-reference/README.md
+- model/redspark/model-weights/base/README.md
+
+RedSpark's own model source (model/redspark/), training, inference and
+data-flywheel code is project-authored. The upstream MiniCPM reference source is
+vendored read-only under third_party/MiniCPM/ and is likewise Apache License 2.0;
+see the LICENSE file in that directory.
+
+MiniCPM5-2B's Llama architecture support is provided by the Hugging Face
+Transformers package (transformers>=5.6,<6).

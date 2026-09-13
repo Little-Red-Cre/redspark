@@ -6,7 +6,23 @@ venv/
 artifacts/
 logs/
 data/raw/*
+!data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
-model/RedSpark-1.0-FlashLight-Preview/model-*.safetensors
+# The smoke dataset is a checked-in fixture: README, training/sft.py and
+# tools/verify_refactor.py --data all reference it. Real training data stays ignored.
+!data/processed/smoke_sft.jsonl
+# Weight binaries never enter Git; fetch or remove them with tools/model_weights.py
+model/redspark/model-weights/**/*.safetensors
+model/redspark/model-weights/**/*.pt
+model/redspark/model-weights/**/*.bin
+model/redspark/model-weights/**/.cache/
 model/.minicpm5-2b-staging/
+
+# third_party/ vendors a read-only upstream checkout. The quantize demo's
+# downloaded datasets (~111 MB of alpaca/wikitext .arrow and .backup files) are
+# not source, so they stay out of the repository.
+third_party/MiniCPM/quantize/quantize_data/
+
+# Local agent workspace data (memory, backups) is not part of the project
+.workbuddy-ai/

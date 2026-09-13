@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "RedSpark SFT record",
+  "$comment": "Assistant turns are thinking-format: `content` carries an inline <think>...</think> block followed by the answer. The chat template splits that block back out, so reasoning lives inside `content` and no separate reasoning field is accepted. This file is the machine-readable declaration, for editors and CI; `data/validate.py` is the executable gate and a strict superset of it, adding the rules a pattern cannot express readably (exactly one <think>/</think> pair, nothing but whitespace before the opening tag, no empty answer) plus the advisory warnings. Nothing in this repository runs this schema, because jsonschema is deliberately not a project dependency; keep the two in step when either changes.",
   "type": "object",
   "required": ["messages"],
   "properties": {
@@ -14,10 +15,22 @@
           "role": {"enum": ["system", "user", "assistant"]},
           "content": {"type": "string", "minLength": 1}
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {"required": ["role"], "properties": {"role": {"const": "assistant"}}},
+            "then": {
+              "properties": {
+                "content": {
+                  "$comment": "Leading whitespace is allowed because data/validate.py only requires the text before <think> to be blank; anything non-blank there is silently dropped by the template and is rejected by the validator.",
+                  "pattern": "^\\s*<think>[\\s\\S]*?</think>[\\s\\S]*\\S[\\s\\S]*$"
+                }
+              }
+            }
+          }
+        ]
       }
     }
   },
   "additionalProperties": false
 }
-
