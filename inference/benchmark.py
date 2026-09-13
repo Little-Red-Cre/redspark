@@ -2,17 +2,23 @@
 
 import argparse
 import os
+import sys
 import time
 from pathlib import Path
 
 import psutil
 import torch
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 from chat import generate, load_model, resolve_device
+from model.redspark.loading import DEFAULT_WEIGHTS_DIR
 
 
-MODEL_NAME = "RedSpark-1.0-FlashLight-Preview"
-DEFAULT_MODEL_DIR = Path(__file__).parents[1] / "model" / MODEL_NAME
+MODEL_NAME = "RedSpark Base"
+DEFAULT_MODEL_DIR = DEFAULT_WEIGHTS_DIR
 
 
 def main() -> None:
